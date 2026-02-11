@@ -11,8 +11,9 @@ Webapp pour une agence de voyage temporel fictive, créée avec IA générative.
 
 ## ✨ Features
 - Landing page interactive
+- Informations de Timetravel Agency
 - Galerie de 3 destinations temporelles
-- Chatbot IA conversationnel
+- Chatbot IA conversationnel, activable via une bulle sur la page
 
 ## 🤖 IA Utilisées
 - Code : Bolt.new (Claude 3.5 Sonnet)
@@ -22,6 +23,8 @@ Webapp pour une agence de voyage temporel fictive, créée avec IA générative.
 Projet pédagogique - MAHIEUX Maxence, SORGIATI Sacha, RETAILLEAU Marine, BAMAS LUNAY Rémy
 
 ## </> Prompts
+- Je souhaites que tu réalise une maquette pour un site web pour Timetravel Agency, une agence de voyage à travers le temps. Ce site doit tenir sur une page, style ancien comme Paris 1789 dans les couleurs et la police, 3 parties distinctes avec carrousel des destinations et informations sur l'agence (date de création, nombre de destinations etc). N'oublie pas le reponsive donc il faut la version mobile, tablette et PC.
+
 - Je souhaites que tu développes une web app avec le nom de TimeTravel Interactive. Cette application aura pour objectif d'afficher plusieurs époques (Paris 1889, Crétacé, Florence 1504). La première étape va être de créer une page d'accueil avec : Hero section avec vidéo / animation de fond, Présentation de l’agence, CTA vers les destinations. En plus de cela, développer une galerie des destinations avec : Cards interactives pour les 3 époques, Visuels générés pendant votre premier projet TimeTravel Agency ( @public/assets/images/Cretaceous.png & @public/assets/images/Florence.png & @public/assets/images/Paris.png ), Informations détaillées par destination. Pour cela, je veux que tu utilises shadcn/ui ainsi que Zod.
 
 - Je veux que dans la section "Choisissez votre époque", chaque card est en background la vidéo correspondante en pause. La vidéo serait en play uniquement en hover.
