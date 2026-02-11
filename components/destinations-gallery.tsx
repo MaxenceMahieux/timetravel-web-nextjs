@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { destinations } from "@/lib/data/destinations";
 import { DestinationCard } from "./destination-card";
 import { fadeInUp, staggerContainer } from "@/lib/motion";
+import { useChatContext } from "@/lib/chat-context";
 
 export function DestinationsGallery() {
+  const { openChat } = useChatContext();
   return (
     <section id="destinations" className="py-20 md:py-32 bg-[#0a1628] relative overflow-hidden">
       {/* Decorative elements */}
@@ -78,9 +80,12 @@ export function DestinationsGallery() {
           <p className="font-body text-sm text-white/40 mb-4">
             Vous ne savez pas quelle destination choisir ?
           </p>
-          <span className="font-body text-[#c9a962] text-sm tracking-wide cursor-pointer hover:text-[#e4d4a5] transition-colors">
+          <button
+            onClick={openChat}
+            className="font-body text-[#c9a962] text-sm tracking-wide cursor-pointer hover:text-[#e4d4a5] transition-colors"
+          >
             Discutez avec notre assistant →
-          </span>
+          </button>
         </motion.div>
       </div>
     </section>

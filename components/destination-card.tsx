@@ -119,20 +119,6 @@ export function DestinationCard({ destination, index }: DestinationCardProps) {
               </span>
             ))}
           </div>
-
-          {/* CTA */}
-          <motion.div
-            className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Button
-              variant="outline"
-              className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 hover:border-white/50 font-body text-sm tracking-wide rounded-none px-6 py-5"
-            >
-              Explorer cette époque
-            </Button>
-          </motion.div>
         </div>
       </div>
     </motion.article>

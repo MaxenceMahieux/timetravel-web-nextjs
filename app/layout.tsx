@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+import { ChatProvider } from "@/lib/chat-context";
 import { ChatPopover } from "@/components/chat-popover";
 
 const playfair = Playfair_Display({
@@ -45,8 +46,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
-        {children}
-        <ChatPopover />
+        <ChatProvider>
+          {children}
+          <ChatPopover />
+        </ChatProvider>
       </body>
     </html>
   );

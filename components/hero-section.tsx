@@ -107,15 +107,6 @@ export function HeroSection() {
               Découvrir les destinations
             </Button>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto border-[#c9a962]/50 text-[#c9a962] hover:bg-[#c9a962]/10 hover:border-[#c9a962] font-body font-medium px-8 md:px-10 py-6 md:py-7 text-sm md:text-base tracking-wide rounded-none transition-all duration-300"
-            >
-              Notre histoire
-            </Button>
-          </motion.div>
         </motion.div>
       </motion.div>
 
