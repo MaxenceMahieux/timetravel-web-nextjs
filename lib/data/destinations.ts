@@ -6,10 +6,11 @@ export const DestinationSchema = z.object({
   era: z.string(),
   year: z.string(),
   description: z.string(),
+  longDescription: z.string(),
   highlights: z.array(z.string()),
   image: z.string(),
   video: z.string(),
-  color: z.string(),
+  accent: z.string(),
 });
 
 export type Destination = z.infer<typeof DestinationSchema>;
@@ -17,54 +18,57 @@ export type Destination = z.infer<typeof DestinationSchema>;
 const destinationsData = [
   {
     id: "paris-1889",
-    name: "Paris 1889",
+    name: "Paris",
     era: "Belle Époque",
     year: "1889",
-    description:
-      "Vivez l'inauguration de la Tour Eiffel et l'effervescence de l'Exposition Universelle. Découvrez le Paris des impressionnistes et des grands boulevards.",
+    description: "L'inauguration de la Tour Eiffel et l'Exposition Universelle",
+    longDescription:
+      "Vivez l'effervescence de l'Exposition Universelle et assistez à l'inauguration de la Tour Eiffel. Découvrez le Paris des impressionnistes, flânez sur les grands boulevards et plongez dans l'âge d'or de la capitale française.",
     highlights: [
-      "Inauguration de la Tour Eiffel",
+      "Inauguration Tour Eiffel",
       "Exposition Universelle",
       "Cafés de Montmartre",
       "Galerie des Machines",
     ],
-    image: "/assets/paris-1889.jpg",
+    image: "/assets/images/Paris.png",
     video: "/assets/videos/Paris.mp4",
-    color: "from-amber-500/80 to-yellow-600/80",
+    accent: "#c9a962",
   },
   {
     id: "cretaceous",
     name: "Crétacé",
     era: "Ère Mésozoïque",
-    year: "-66 000 000",
-    description:
-      "Explorez la Terre à l'époque des dinosaures. Observez le T-Rex dans son habitat naturel et découvrez un monde luxuriant dominé par les géants.",
+    year: "-66M",
+    description: "L'ère des dinosaures dans son apogée",
+    longDescription:
+      "Explorez la Terre à l'époque des géants. Observez le T-Rex dans son habitat naturel, survolez les forêts préhistoriques aux côtés des Ptéranodons et découvrez un monde luxuriant où règnent les plus grandes créatures de l'histoire.",
     highlights: [
       "Tyrannosaurus Rex",
-      "Forêts préhistoriques",
-      "Ptéranodons en vol",
+      "Forêts primaires",
+      "Ptéranodons",
       "Volcans actifs",
     ],
-    image: "/assets/cretaceous.jpg",
+    image: "/assets/images/Cretaceous.png",
     video: "/assets/videos/Cretaceous.mp4",
-    color: "from-emerald-600/80 to-green-700/80",
+    accent: "#4a7c59",
   },
   {
     id: "florence-1504",
-    name: "Florence 1504",
+    name: "Florence",
     era: "Renaissance",
     year: "1504",
-    description:
-      "Assistez à l'apogée de la Renaissance italienne. Rencontrez Michel-Ange, admirez le David fraîchement achevé et flânez dans les ateliers des maîtres.",
+    description: "L'apogée de la Renaissance italienne",
+    longDescription:
+      "Assistez au dévoilement du David de Michel-Ange et plongez au cœur de la Renaissance florentine. Visitez les ateliers des plus grands maîtres, rencontrez Léonard de Vinci et découvrez une ville où l'art et le génie humain atteignent leur apogée.",
     highlights: [
-      "Atelier de Michel-Ange",
+      "Atelier Michel-Ange",
       "Dévoilement du David",
       "Palazzo Vecchio",
       "Bottega de Léonard",
     ],
-    image: "/assets/florence-1504.jpg",
+    image: "/assets/images/Florence.png",
     video: "/assets/videos/Florence.mp4",
-    color: "from-red-700/80 to-orange-600/80",
+    accent: "#8b4d3b",
   },
 ];
 

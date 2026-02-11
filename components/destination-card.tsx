@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Destination } from "@/lib/data/destinations";
 import { fadeInUp } from "@/lib/motion";
@@ -26,129 +25,116 @@ export function DestinationCard({ destination, index }: DestinationCardProps) {
   };
 
   return (
-    <motion.div
-      className="group relative h-[500px] rounded-2xl overflow-hidden cursor-pointer"
+    <motion.article
+      className="group relative aspect-[3/4] md:aspect-[4/5] overflow-hidden cursor-pointer"
       variants={fadeInUp}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.3 }}
     >
       {/* Video background */}
-      <motion.video
+      <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         src={destination.video}
+        poster={destination.image}
         muted
         loop
         playsInline
         preload="metadata"
-        initial={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        transition={{ duration: 0.5 }}
       />
 
-      {/* Gradient overlay for better text readability */}
-      <motion.div
-        className={`absolute inset-0 bg-gradient-to-br ${destination.color}`}
-        initial={{ opacity: 0.4 }}
-        whileHover={{ opacity: 0.2 }}
-        transition={{ duration: 0.3 }}
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-[#0a1628]/20 to-transparent opacity-80" />
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+        style={{ backgroundColor: destination.accent }}
       />
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+      {/* Corner frame */}
+      <div className="absolute inset-4 md:inset-6 pointer-events-none">
+        <div
+          className="absolute top-0 left-0 w-8 md:w-12 h-8 md:h-12 border-l border-t transition-all duration-500 group-hover:w-12 group-hover:md:w-16 group-hover:h-12 group-hover:md:h-16"
+          style={{ borderColor: destination.accent }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-8 md:w-12 h-8 md:h-12 border-r border-b transition-all duration-500 group-hover:w-12 group-hover:md:w-16 group-hover:h-12 group-hover:md:h-16"
+          style={{ borderColor: destination.accent }}
+        />
+      </div>
 
       {/* Content */}
-      <div className="absolute inset-0 p-6 flex flex-col justify-end">
+      <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
         {/* Year badge */}
         <motion.div
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.1 + 0.2 }}
-        >
-          <Badge
-            variant="secondary"
-            className="w-fit mb-3 bg-white/20 backdrop-blur-sm text-white border-white/30"
-          >
-            {destination.year}
-          </Badge>
-        </motion.div>
-
-        {/* Title */}
-        <motion.h3
-          className="text-3xl font-bold text-white mb-2"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.1 + 0.3 }}
-        >
-          {destination.name}
-        </motion.h3>
-
-        {/* Era */}
-        <motion.p
-          className="text-white/80 text-sm font-medium mb-3"
+          className="absolute top-6 md:top-8 right-6 md:right-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: index * 0.1 + 0.4 }}
+          transition={{ delay: index * 0.1 + 0.3 }}
         >
-          {destination.era}
-        </motion.p>
+          <span
+            className="font-serif text-4xl md:text-5xl font-medium opacity-30 group-hover:opacity-50 transition-opacity duration-500"
+            style={{ color: destination.accent }}
+          >
+            {destination.year}
+          </span>
+        </motion.div>
 
-        {/* Description - visible on hover */}
-        <motion.div
-          className="overflow-hidden"
-          initial={{ height: 0, opacity: 0 }}
-          whileHover={{ height: "auto", opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <p className="text-white/90 text-sm mb-4 leading-relaxed">
-            {destination.description}
-          </p>
+        {/* Main content */}
+        <div className="relative">
+          {/* Era tag */}
+          <span
+            className="inline-block font-body text-xs tracking-[0.2em] uppercase mb-3 md:mb-4"
+            style={{ color: destination.accent }}
+          >
+            {destination.era}
+          </span>
 
-          {/* Highlights */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {destination.highlights.slice(0, 3).map((highlight, i) => (
-              <motion.span
+          {/* Title */}
+          <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-white mb-3 md:mb-4 tracking-tight">
+            {destination.name}
+          </h3>
+
+          {/* Divider */}
+          <div
+            className="w-12 h-px mb-4 md:mb-6 transition-all duration-500 group-hover:w-20"
+            style={{ backgroundColor: destination.accent }}
+          />
+
+          {/* Description - visible on hover */}
+          <div className="overflow-hidden">
+            <p className="font-body text-sm md:text-base text-white/70 leading-relaxed mb-6 max-h-0 group-hover:max-h-32 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              {destination.longDescription}
+            </p>
+          </div>
+
+          {/* Highlights - visible on hover */}
+          <div className="flex flex-wrap gap-2 mb-6 max-h-0 group-hover:max-h-20 opacity-0 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+            {destination.highlights.slice(0, 3).map((highlight) => (
+              <span
                 key={highlight}
-                className="text-xs px-2 py-1 rounded-full bg-white/10 text-white/80"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
+                className="font-body text-xs px-3 py-1 border border-white/20 text-white/60"
               >
                 {highlight}
-              </motion.span>
+              </span>
             ))}
           </div>
-        </motion.div>
 
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileHover={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          {/* CTA */}
+          <motion.div
+            className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             <Button
-              variant="secondary"
-              className="w-full bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-white/30"
+              variant="outline"
+              className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 hover:border-white/50 font-body text-sm tracking-wide rounded-none px-6 py-5"
             >
-              Découvrir cette époque
+              Explorer cette époque
             </Button>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Decorative corner */}
-      <motion.div
-        className="absolute top-4 right-4 border-t-2 border-r-2 border-white/30 rounded-tr-lg"
-        initial={{ width: 48, height: 48 }}
-        whileHover={{ width: 64, height: 64 }}
-        transition={{ duration: 0.3 }}
-      />
-    </motion.div>
+    </motion.article>
   );
 }

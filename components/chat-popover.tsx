@@ -84,30 +84,30 @@ export function ChatPopover() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <motion.div
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+            transition={{ delay: 1, type: "spring", stiffness: 200 }}
           >
             <Button
               size="lg"
-              className="h-14 w-14 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/25"
+              className="h-12 w-12 md:h-14 md:w-14 rounded-none bg-[#c9a962] hover:bg-[#a68b4b] shadow-lg shadow-[#c9a962]/20"
             >
               <AnimatePresence mode="wait">
                 {isOpen ? (
                   <motion.svg
                     key="close"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="currentColor"
+                    stroke="#0a1628"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -123,11 +123,11 @@ export function ChatPopover() {
                   <motion.svg
                     key="chat"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="currentColor"
+                    stroke="#0a1628"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -144,16 +144,18 @@ export function ChatPopover() {
           </motion.div>
         </PopoverTrigger>
         <PopoverContent
-          className="w-80 sm:w-96 h-[500px] p-0 mr-2 mb-2"
+          className="w-[calc(100vw-2rem)] sm:w-96 h-[70vh] sm:h-[500px] p-0 mr-0 sm:mr-2 mb-2 rounded-none border-[#d4d0c4] bg-[#f8f6f1]"
           side="top"
           align="end"
           sideOffset={8}
         >
           <div className="flex flex-col h-full">
             {/* Header */}
-            <div className="p-4 border-b bg-gradient-to-r from-purple-600 to-blue-600 rounded-t-md">
-              <h3 className="font-semibold text-white">Assistant TimeTravel</h3>
-              <p className="text-xs text-white/80">
+            <div className="p-4 md:p-5 border-b border-[#d4d0c4] bg-[#0a1628]">
+              <h3 className="font-serif text-lg md:text-xl font-medium text-white">
+                Assistant TimeTravel
+              </h3>
+              <p className="font-body text-xs text-white/60 mt-1">
                 Posez vos questions sur nos destinations
               </p>
             </div>
@@ -161,27 +163,42 @@ export function ChatPopover() {
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.length === 0 && (
-                <div className="text-center text-muted-foreground text-sm py-8">
-                  <p>Bonjour ! 👋</p>
-                  <p className="mt-2">
-                    Comment puis-je vous aider à préparer votre voyage temporel
-                    ?
+                <div className="text-center py-8">
+                  <div className="w-12 h-12 mx-auto mb-4 border border-[#c9a962]/30 flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#c9a962"
+                      strokeWidth="1.5"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 16v-4M12 8h.01" />
+                    </svg>
+                  </div>
+                  <p className="font-serif text-lg text-[#0a1628] mb-2">
+                    Bienvenue
+                  </p>
+                  <p className="font-body text-sm text-[#5a6370]">
+                    Comment puis-je vous aider à préparer votre voyage temporel ?
                   </p>
                 </div>
               )}
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2 }}
                   className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
+                    className={`max-w-[85%] px-4 py-3 font-body text-sm ${
                       message.role === "user"
-                        ? "bg-purple-600 text-white"
-                        : "bg-muted"
+                        ? "bg-[#0a1628] text-white"
+                        : "bg-white border border-[#d4d0c4] text-[#0a1628]"
                     }`}
                   >
                     {message.content}
@@ -190,8 +207,17 @@ export function ChatPopover() {
               ))}
               {isLoading && messages[messages.length - 1]?.role === "user" && (
                 <div className="flex justify-start">
-                  <div className="bg-muted rounded-lg px-3 py-2 text-sm">
-                    <span className="animate-pulse">...</span>
+                  <div className="bg-white border border-[#d4d0c4] px-4 py-3">
+                    <motion.span
+                      className="inline-flex gap-1"
+                      initial={{ opacity: 0.5 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ repeat: Infinity, duration: 0.8 }}
+                    >
+                      <span className="w-1.5 h-1.5 bg-[#c9a962] rounded-full" />
+                      <span className="w-1.5 h-1.5 bg-[#c9a962] rounded-full" />
+                      <span className="w-1.5 h-1.5 bg-[#c9a962] rounded-full" />
+                    </motion.span>
                   </div>
                 </div>
               )}
@@ -199,14 +225,14 @@ export function ChatPopover() {
             </div>
 
             {/* Input */}
-            <form onSubmit={sendMessage} className="p-4 border-t">
+            <form onSubmit={sendMessage} className="p-4 border-t border-[#d4d0c4]">
               <div className="flex gap-2">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Écrivez votre message..."
+                  placeholder="Votre message..."
                   disabled={isLoading}
-                  className="flex-1"
+                  className="flex-1 font-body text-sm rounded-none border-[#d4d0c4] bg-white focus:border-[#c9a962] focus:ring-[#c9a962]/20"
                 />
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -216,7 +242,7 @@ export function ChatPopover() {
                     type="submit"
                     size="icon"
                     disabled={isLoading || !input.trim()}
-                    className="bg-purple-600 hover:bg-purple-700"
+                    className="rounded-none bg-[#0a1628] hover:bg-[#132238] disabled:opacity-50"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

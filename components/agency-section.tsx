@@ -1,98 +1,103 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { fadeInUp, staggerContainer, scaleIn } from "@/lib/motion";
+import { fadeInUp, staggerContainer } from "@/lib/motion";
 
 const stats = [
-  { value: "3", label: "Époques", icon: "🕰️" },
-  { value: "∞", label: "Possibilités", icon: "✨" },
-  { value: "100%", label: "Immersif", icon: "🎭" },
+  { value: "3", label: "Époques uniques", suffix: "" },
+  { value: "2089", label: "Année de fondation", suffix: "" },
+  { value: "100", label: "Immersion garantie", suffix: "%" },
 ];
 
 const features = [
   {
-    title: "Technologie quantique",
+    title: "Portail Quantique",
     description:
-      "Notre portail temporel utilise les dernières avancées en physique quantique pour des voyages sûrs et précis.",
-    icon: "⚛️",
+      "Notre technologie exclusive permet des voyages temporels sûrs et précis, validée par l'Académie des Sciences Temporelles.",
+    number: "01",
   },
   {
-    title: "Guides experts",
+    title: "Guides Historiens",
     description:
-      "Accompagnés par des historiens et scientifiques, vivez chaque époque avec une authenticité incomparable.",
-    icon: "🎓",
+      "Chaque voyage est accompagné par des experts passionnés, historiens et scientifiques reconnus dans leur domaine.",
+    number: "02",
   },
   {
-    title: "Expérience sur mesure",
+    title: "Sur Mesure",
     description:
-      "Chaque voyage est personnalisé selon vos centres d'intérêt pour une immersion totale.",
-    icon: "🎯",
+      "Votre expérience est personnalisée selon vos centres d'intérêt pour une immersion totale et mémorable.",
+    number: "03",
   },
 ];
 
 export function AgencySection() {
   return (
-    <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <section className="py-20 md:py-32 bg-[#f8f6f1] relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-[#c9a962]/40 to-transparent" />
+        <div className="absolute top-20 left-8 md:left-16 w-32 h-32 border border-[#c9a962]/10 rounded-full" />
+        <div className="absolute bottom-20 right-8 md:right-16 w-48 h-48 border border-[#c9a962]/10 rounded-full" />
+      </div>
+
+      <div className="container mx-auto px-6 md:px-8 max-w-6xl relative">
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-16 md:mb-24"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
-            <Badge
-              variant="secondary"
-              className="mb-4 px-4 py-1 text-sm bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-            >
-              Notre agence
-            </Badge>
-          </motion.div>
+          <motion.span
+            variants={fadeInUp}
+            className="inline-flex items-center gap-3 text-[#c9a962] text-xs tracking-[0.3em] uppercase font-body mb-6"
+          >
+            <span className="w-8 h-px bg-[#c9a962]" />
+            À propos
+            <span className="w-8 h-px bg-[#c9a962]" />
+          </motion.span>
+
           <motion.h2
             variants={fadeInUp}
-            className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-[#0a1628] mb-6 tracking-tight"
           >
-            Pionniers du voyage temporel
+            Pionniers du
+            <br />
+            <span className="text-gradient">voyage temporel</span>
           </motion.h2>
+
           <motion.p
             variants={fadeInUp}
-            className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
+            className="font-body text-base md:text-lg text-[#5a6370] max-w-xl mx-auto leading-relaxed"
           >
-            Depuis 2089, TimeTravel Interactive repousse les limites de
-            l&apos;exploration historique. Notre mission : rendre le passé
-            accessible à tous.
+            Depuis notre fondation, nous repoussons les limites de l&apos;exploration
+            historique pour rendre le passé accessible à tous.
           </motion.p>
         </motion.div>
 
         {/* Stats */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 mb-20 md:mb-32"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={staggerContainer}
         >
-          {stats.map((stat) => (
+          {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              variants={scaleIn}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="text-center p-8 rounded-2xl bg-white dark:bg-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700"
+              variants={fadeInUp}
+              className="text-center relative"
             >
-              <span className="text-4xl mb-4 block">{stat.icon}</span>
-              <motion.div
-                className="text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2"
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
-              >
+              {index > 0 && (
+                <div className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-16 bg-[#d4d0c4]" />
+              )}
+              <div className="font-serif text-5xl md:text-6xl font-medium text-[#0a1628] mb-2">
                 {stat.value}
-              </motion.div>
-              <div className="text-slate-600 dark:text-slate-400 font-medium">
+                <span className="text-[#c9a962]">{stat.suffix}</span>
+              </div>
+              <div className="font-body text-sm text-[#5a6370] tracking-wide uppercase">
                 {stat.label}
               </div>
             </motion.div>
@@ -101,7 +106,7 @@ export function AgencySection() {
 
         {/* Features */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
@@ -111,26 +116,26 @@ export function AgencySection() {
             <motion.div
               key={feature.title}
               variants={fadeInUp}
-              whileHover={{
-                y: -3,
-                borderColor: "rgba(147, 51, 234, 0.3)",
-                transition: { duration: 0.2 },
-              }}
-              className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 transition-colors"
+              className="group relative p-6 md:p-8"
             >
-              <motion.span
-                className="text-3xl mb-4 block"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                {feature.icon}
-              </motion.span>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400">
-                {feature.description}
-              </p>
+              {/* Number */}
+              <span className="font-serif text-6xl md:text-7xl font-medium text-[#c9a962]/10 absolute top-0 right-4 md:right-8 leading-none group-hover:text-[#c9a962]/20 transition-colors duration-500">
+                {feature.number}
+              </span>
+
+              {/* Content */}
+              <div className="relative">
+                <div className="w-8 h-px bg-[#c9a962] mb-6" />
+                <h3 className="font-serif text-xl md:text-2xl font-medium text-[#0a1628] mb-4">
+                  {feature.title}
+                </h3>
+                <p className="font-body text-sm md:text-base text-[#5a6370] leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+
+              {/* Hover border */}
+              <div className="absolute inset-0 border border-transparent group-hover:border-[#c9a962]/20 transition-colors duration-500" />
             </motion.div>
           ))}
         </motion.div>

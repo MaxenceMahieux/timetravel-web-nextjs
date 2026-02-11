@@ -5,27 +5,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, staggerContainer } from "@/lib/motion";
 
-interface Particle {
-  id: number;
-  left: number;
-  top: number;
-  delay: number;
-  duration: number;
-}
-
 export function HeroSection() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setParticles(
-      Array.from({ length: 20 }, (_, i) => ({
-        id: i,
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        delay: Math.random() * 5,
-        duration: 3 + Math.random() * 4,
-      }))
-    );
+    setMounted(true);
   }, []);
 
   const scrollToDestinations = () => {
@@ -35,110 +19,101 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-        <div className="absolute inset-0 bg-[url('/assets/stars.svg')] opacity-50" />
-        <div className="absolute inset-0 animate-pulse-slow bg-gradient-to-t from-purple-500/10 via-transparent to-blue-500/10" />
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-[#0a1628]">
+      {/* Background video */}
+      <div className="absolute inset-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          poster="/assets/images/Paris.png"
+        >
+          <source src="/assets/videos/Paris.mp4" type="video/mp4" />
+        </video>
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628]/60 via-[#0a1628]/40 to-[#0a1628]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628]/80 via-transparent to-[#0a1628]/80" />
       </div>
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-60"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 0.6, 0],
-              y: [0, -30, 0],
-              x: [0, 10, -10, 0],
-            }}
-            transition={{
-              duration: particle.duration,
-              delay: particle.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-            }}
-          />
-        ))}
-      </div>
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Horizontal lines */}
+        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#c9a962]/20 to-transparent" />
+        <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#c9a962]/20 to-transparent" />
 
-      {/* Time portal effect */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.div
-          className="w-[600px] h-[600px] rounded-full border border-purple-500/20"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full border border-blue-500/20"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full border border-purple-400/30"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        />
+        {/* Corner accents */}
+        <div className="absolute top-8 left-8 w-16 h-16 md:w-24 md:h-24 border-l border-t border-[#c9a962]/30" />
+        <div className="absolute top-8 right-8 w-16 h-16 md:w-24 md:h-24 border-r border-t border-[#c9a962]/30" />
+        <div className="absolute bottom-8 left-8 w-16 h-16 md:w-24 md:h-24 border-l border-b border-[#c9a962]/30" />
+        <div className="absolute bottom-8 right-8 w-16 h-16 md:w-24 md:h-24 border-r border-b border-[#c9a962]/30" />
       </div>
 
       {/* Content */}
       <motion.div
-        className="relative z-10 text-center px-4 max-w-4xl mx-auto"
+        className="relative z-10 text-center px-6 md:px-8 max-w-5xl mx-auto"
         variants={staggerContainer}
         initial="hidden"
-        animate="visible"
+        animate={mounted ? "visible" : "hidden"}
       >
-        <motion.div variants={fadeInUp} className="mb-6 inline-block">
-          <span className="px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-sm font-medium">
-            Voyagez à travers le temps
+        {/* Eyebrow */}
+        <motion.div variants={fadeInUp} className="mb-6 md:mb-8">
+          <span className="inline-flex items-center gap-3 text-[#c9a962] text-xs md:text-sm tracking-[0.3em] uppercase font-body">
+            <span className="w-8 md:w-12 h-px bg-[#c9a962]" />
+            Agence de voyage temporel
+            <span className="w-8 md:w-12 h-px bg-[#c9a962]" />
           </span>
         </motion.div>
 
+        {/* Main title */}
         <motion.h1
           variants={fadeInUp}
-          className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight"
+          className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white mb-6 md:mb-8 tracking-tight leading-[0.9]"
         >
-          <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
-            TimeTravel
+          <span className="block">Time</span>
+          <span className="block text-gradient">Travel</span>
+          <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white/80 mt-2">
+            Interactive
           </span>
-          <br />
-          <span className="text-white/90">Interactive</span>
         </motion.h1>
 
+        {/* Divider */}
+        <motion.div variants={fadeInUp} className="flex justify-center mb-6 md:mb-8">
+          <div className="w-20 md:w-24 h-px bg-gradient-to-r from-transparent via-[#c9a962] to-transparent" />
+        </motion.div>
+
+        {/* Subtitle */}
         <motion.p
           variants={fadeInUp}
-          className="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed"
+          className="font-body text-base sm:text-lg md:text-xl text-white/70 mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed px-4"
         >
-          Explorez les époques les plus fascinantes de l&apos;histoire.
-          Vivez des expériences immersives uniques au cœur du passé.
+          Explorez les époques les plus fascinantes de l&apos;histoire humaine.
+          <span className="hidden sm:inline"><br /></span>{" "}
+          Paris 1889, le Crétacé, la Renaissance florentine — choisissez votre aventure.
         </motion.p>
 
+        {/* CTA */}
         <motion.div
           variants={fadeInUp}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
               size="lg"
               onClick={scrollToDestinations}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full shadow-lg shadow-purple-500/25 transition-shadow hover:shadow-purple-500/40"
+              className="w-full sm:w-auto bg-[#c9a962] hover:bg-[#a68b4b] text-[#0a1628] font-body font-medium px-8 md:px-10 py-6 md:py-7 text-sm md:text-base tracking-wide rounded-none transition-all duration-300"
             >
-              Explorer les destinations
+              Découvrir les destinations
             </Button>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
               size="lg"
               variant="outline"
-              className="border-purple-500/50 text-purple-300 hover:bg-purple-500/10 px-8 py-6 text-lg rounded-full"
+              className="w-full sm:w-auto border-[#c9a962]/50 text-[#c9a962] hover:bg-[#c9a962]/10 hover:border-[#c9a962] font-body font-medium px-8 md:px-10 py-6 md:py-7 text-sm md:text-base tracking-wide rounded-none transition-all duration-300"
             >
-              En savoir plus
+              Notre histoire
             </Button>
           </motion.div>
         </motion.div>
@@ -146,22 +121,19 @@ export function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.5 }}
+        className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
       >
+        <span className="text-[#c9a962]/60 text-xs tracking-[0.2em] uppercase font-body">
+          Explorer
+        </span>
         <motion.div
-          className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.div
-            className="w-1 h-2 bg-white/50 rounded-full"
-            animate={{ y: [0, 6, 0], opacity: [1, 0.5, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
+          className="w-px h-12 md:h-16 bg-gradient-to-b from-[#c9a962]/60 to-transparent"
+          animate={{ scaleY: [1, 0.5, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        />
       </motion.div>
     </section>
   );
