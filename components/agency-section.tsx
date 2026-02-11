@@ -1,4 +1,8 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { fadeInUp, staggerContainer, scaleIn } from "@/lib/motion";
 
 const stats = [
   { value: "3", label: "Époques", icon: "🕰️" },
@@ -32,58 +36,104 @@ export function AgencySection() {
     <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-16">
-          <Badge
-            variant="secondary"
-            className="mb-4 px-4 py-1 text-sm bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+        <motion.div
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp}>
+            <Badge
+              variant="secondary"
+              className="mb-4 px-4 py-1 text-sm bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+            >
+              Notre agence
+            </Badge>
+          </motion.div>
+          <motion.h2
+            variants={fadeInUp}
+            className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6"
           >
-            Notre agence
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
             Pionniers du voyage temporel
-          </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            variants={fadeInUp}
+            className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
+          >
             Depuis 2089, TimeTravel Interactive repousse les limites de
             l&apos;exploration historique. Notre mission : rendre le passé
             accessible à tous.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+        >
           {stats.map((stat) => (
-            <div
+            <motion.div
               key={stat.label}
+              variants={scaleIn}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
               className="text-center p-8 rounded-2xl bg-white dark:bg-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700"
             >
               <span className="text-4xl mb-4 block">{stat.icon}</span>
-              <div className="text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+              <motion.div
+                className="text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2"
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
+              >
                 {stat.value}
-              </div>
+              </motion.div>
               <div className="text-slate-600 dark:text-slate-400 font-medium">
                 {stat.label}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+        >
           {features.map((feature) => (
-            <div
+            <motion.div
               key={feature.title}
-              className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-purple-200 dark:hover:border-purple-800 transition-colors"
+              variants={fadeInUp}
+              whileHover={{
+                y: -3,
+                borderColor: "rgba(147, 51, 234, 0.3)",
+                transition: { duration: 0.2 },
+              }}
+              className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 transition-colors"
             >
-              <span className="text-3xl mb-4 block">{feature.icon}</span>
+              <motion.span
+                className="text-3xl mb-4 block"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                {feature.icon}
+              </motion.span>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
                 {feature.title}
               </h3>
               <p className="text-slate-600 dark:text-slate-400">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

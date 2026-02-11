@@ -8,6 +8,7 @@ export const DestinationSchema = z.object({
   description: z.string(),
   highlights: z.array(z.string()),
   image: z.string(),
+  video: z.string(),
   color: z.string(),
 });
 
@@ -28,6 +29,7 @@ const destinationsData = [
       "Galerie des Machines",
     ],
     image: "/assets/paris-1889.jpg",
+    video: "/assets/videos/Paris.mp4",
     color: "from-amber-500/80 to-yellow-600/80",
   },
   {
@@ -44,6 +46,7 @@ const destinationsData = [
       "Volcans actifs",
     ],
     image: "/assets/cretaceous.jpg",
+    video: "/assets/videos/Cretaceous.mp4",
     color: "from-emerald-600/80 to-green-700/80",
   },
   {
@@ -60,6 +63,7 @@ const destinationsData = [
       "Bottega de Léonard",
     ],
     image: "/assets/florence-1504.jpg",
+    video: "/assets/videos/Florence.mp4",
     color: "from-red-700/80 to-orange-600/80",
   },
 ];
